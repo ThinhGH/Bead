@@ -1,0 +1,29 @@
+/* Add this CSS to your stylesheet */
+.nav-link-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    margin-right: 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    color: #fff;
+    background-color: #007bff;
+    border: 2px solid transparent;
+  }
+  
+  .nav-link-btn:hover {
+    background-color: #0056b3;
+    border-color: #0056b3;
+  }
+  
+  .nav-link-btn svg {
+    margin-right: 5px;
+  }
+  
+  /* Adjust styles for the badge */
+  .badge {
+    margin-left: 5px;
+    position: relative;
+    top: -2px;
+  }
+  

@@ -1,3 +1,4 @@
+import React from 'react'; // Import React
 import { Navbar, Nav, Container, NavDropdown, Badge } from 'react-bootstrap';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import { LinkContainer } from 'react-router-bootstrap';
@@ -7,6 +8,7 @@ import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
 import SearchBox from './SearchBox';
 import { resetCart } from '../slices/cartSlice';
+import logo from '../assets/logo.png'; // Correct import statement
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -21,8 +23,6 @@ const Header = () => {
     try {
       await logoutApiCall().unwrap();
       dispatch(logout());
-      // NOTE: here we need to reset cart state for when a user logs out so the next
-      // user doesn't inherit the previous users cart and shipping
       dispatch(resetCart());
       navigate('/login');
     } catch (err) {
@@ -32,12 +32,39 @@ const Header = () => {
 
   return (
     <header>
-      <Navbar style={{backgroundColor:'#ffbac8'}} variant='dark' expand='lg' collapseOnSelect>
+      <Navbar
+        style={{ backgroundColor: '#ffbac8', fontFamily: 'cursive' }}
+        variant='dark'
+        expand='lg'
+        collapseOnSelect
+      >
         <Container>
           <LinkContainer to='/'>
-            <Navbar.Brand style={{backgroundColor:'#000'}} >
-            <img src="../src/assets/logo.png" alt="" />
-              Bead4bea
+            <Navbar.Brand
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                backgroundColor: '#fff',
+                padding: '0.5rem 1rem',
+                borderRadius: '10px',
+                boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+              }}
+            >
+              <img  
+                src={logo} // Use the imported logo variable here
+                alt='Retro Tree Logo'
+                style={{ marginRight: '10px', width: '40px', height: 'auto',borderRadius:'100px' }}
+              />
+              <span
+                style={{
+                  fontFamily: 'cursive',
+                  fontSize: '1.5rem',
+                  fontWeight: 'bold',
+                  color: '#fff',
+                }}
+              >
+                Retro Tree
+              </span>
             </Navbar.Brand>
           </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />

@@ -6,19 +6,41 @@ import Product from '../components/Product';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 import Paginate from '../components/Paginate';
+import ProductCarousel from '../components/ProductCarousel';
 import Meta from '../components/Meta';
-import '../assets/styles/HomeScreen.css'; // Import your CSS file
+import BrandFilter from '../components/BrandFilter';
+import CategoryFilter from '../components/CategoryFilter';
+import React, { useState } from 'react';
 
 const HomeScreen = () => {
   const { pageNumber, keyword } = useParams();
+
+  const [selectedBrand, setSelectedBrand] = useState('');
+
+  const [selectedCategory, setSelectedCategory] = useState('');
 
   const { data, isLoading, error } = useGetProductsQuery({
     keyword,
     pageNumber,
   });
 
+  const handleBrandClick = (brand) => {
+    setSelectedBrand(brand);
+  };
+
+  const handleCategoryClick = (category) => {
+    setSelectedCategory(category);
+  };
+
   return (
-    <div className="home-screen">
+    <>
+      {!keyword ? (
+        <ProductCarousel />
+      ) : (
+        <Link to='/' className='btn btn-light mb-4'>
+          Back
+        </Link>
+      )}
       {isLoading ? (
         <Loader />
       ) : error ? (
@@ -28,31 +50,34 @@ const HomeScreen = () => {
       ) : (
         <>
           <Meta />
-          <h2 className="banner-text"
-           style={{ display: 'flex',
-           alignItems: 'center',
-           color: '#000',
-           fontFamily: 'cursive',
-           fontSize: '18px',
-           lineHeight: '1.5',
-           textAlign: 'justify',
-           position: 'relative',}}>
-            Trong thế giới bận rộn, việc chăm sóc cây
-            có thể trở nên phức tạp.<br/> Retro sẽ giúp bạn
-            đưa ra những lựa chọn có thể xem xét
-            cho không gian của <br/>bạn vì chúng chung có
-            những đặc điểm chung là dễ chăm sóc và ít
-            yêu cầu về thời gian.
-          </h2>
-
-          <h1 style={{ color: '#000', fontFamily: 'cursive' }}>Latest Products:</h1>
-          
+          <h1 style={{ color: 'black' }}>
+            <b>Sản phẩm/Lưu ý: Cây ở trang 1 và Chậu ở trang 2</b>
+          </h1>
+          <BrandFilter
+            selectedBrand={selectedBrand}
+            onBrandClick={handleBrandClick}
+          />
+          <CategoryFilter
+            selectedCategory={selectedCategory}
+            onCategoryClick={handleCategoryClick}
+          />
           <Row>
-            {data.products.map((product) => (
-              <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                <Product product={product} />
-              </Col>
-            ))}
+            {data.products
+              .filter((product) => {
+                // Filter by brand and category
+                return (
+                  (!selectedBrand || product.brand === selectedBrand) &&
+                  (!selectedCategory ||
+                    product.category
+                      .toLowerCase()
+                      .includes(selectedCategory.toLowerCase()))
+                );
+              })
+              .map((product) => (
+                <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
+                  <Product product={product} />
+                </Col>
+              ))}
           </Row>
           <Paginate
             pages={data.pages}
@@ -61,7 +86,7 @@ const HomeScreen = () => {
           />
         </>
       )}
-    </div>
+    </>
   );
 };
 

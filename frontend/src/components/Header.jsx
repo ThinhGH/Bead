@@ -1,5 +1,12 @@
-import React from 'react'; // Import React
-import { Navbar, Nav, Container, NavDropdown, Badge } from 'react-bootstrap';
+import React from 'react';
+import {
+  Navbar,
+  Nav,
+  Container,
+  NavDropdown,
+  Badge,
+  Button,
+} from 'react-bootstrap';
 import { FaShoppingCart, FaUser } from 'react-icons/fa';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,7 +15,7 @@ import { useLogoutMutation } from '../slices/usersApiSlice';
 import { logout } from '../slices/authSlice';
 import SearchBox from './SearchBox';
 import { resetCart } from '../slices/cartSlice';
-import logo from '../assets/logo.png'; // Correct import statement
+import logo from '../assets/logo.png';
 
 const Header = () => {
   const { cartItems } = useSelector((state) => state.cart);
@@ -30,34 +37,34 @@ const Header = () => {
     }
   };
 
+  const handleSanPhamClick = () => {
+    // Navigate to SanPhamScreen
+    navigate('/san-pham');
+  };
+
   return (
     <header>
       <Navbar
-        style={{ backgroundColor: '#ffbac8', fontFamily: 'cursive' }}
+        style={{ backgroundColor: 'wheat', fontFamily: 'cursive' }}
         variant='dark'
         expand='lg'
         collapseOnSelect
       >
         <Container>
           <LinkContainer to='/'>
-            <Navbar.Brand
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                backgroundColor: '#fff',
-                padding: '0.5rem 1rem',
-                borderRadius: '10px',
-                boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
-              }}
-            >
-              <img  
-                src={logo} // Use the imported logo variable here
+            <Navbar.Brand>
+              <img
+                src={logo}
                 alt='Retro Tree Logo'
-                style={{ marginRight: '10px', width: '40px', height: 'auto',borderRadius:'100px' }}
+                style={{
+                  marginRight: '10px',
+                  width: '40px',
+                  height: 'auto',
+                  borderRadius: '100px',
+                }}
               />
               <span
                 style={{
-                  fontFamily: 'cursive',
                   fontSize: '1.5rem',
                   fontWeight: 'bold',
                   color: '#fff',
@@ -67,12 +74,24 @@ const Header = () => {
               </span>
             </Navbar.Brand>
           </LinkContainer>
+          <LinkContainer to='/SP'>
+            <Button
+              className='button-54'
+              variant='outline-primary'
+              onClick={handleSanPhamClick}
+            >
+              Sản Phẩm
+            </Button>
+          </LinkContainer>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
           <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='ms-auto'>
               <SearchBox />
+              {/* Button to navigate to Sản phẩm page */}
+
               <LinkContainer to='/cart'>
-                <Nav.Link>
+                {/* Change color style to black */}
+                <Nav.Link style={{ color: '#000' }}>
                   <FaShoppingCart /> Cart
                   {cartItems.length > 0 && (
                     <Badge pill bg='success' style={{ marginLeft: '5px' }}>
@@ -82,19 +101,17 @@ const Header = () => {
                 </Nav.Link>
               </LinkContainer>
               {userInfo ? (
-                <>
-                  <NavDropdown title={userInfo.name} id='username'>
-                    <LinkContainer to='/profile'>
-                      <NavDropdown.Item>Profile</NavDropdown.Item>
-                    </LinkContainer>
-                    <NavDropdown.Item onClick={logoutHandler}>
-                      Logout
-                    </NavDropdown.Item>
-                  </NavDropdown>
-                </>
+                <NavDropdown title={userInfo.name} id='username'>
+                  <LinkContainer to='/profile'>
+                    <NavDropdown.Item>Profile</NavDropdown.Item>
+                  </LinkContainer>
+                  <NavDropdown.Item onClick={logoutHandler}>
+                    Logout
+                  </NavDropdown.Item>
+                </NavDropdown>
               ) : (
                 <LinkContainer to='/login'>
-                  <Nav.Link>
+                  <Nav.Link style={{ color: '#000' }}>
                     <FaUser /> Sign In
                   </Nav.Link>
                 </LinkContainer>

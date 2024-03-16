@@ -6,11 +6,11 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer style={{ backgroundColor: '#ffbac8', fontFamily: 'cursive', color: '#fff' }}>
+    <footer style={{ backgroundColor: 'wheat', fontFamily: 'cursive', color: '#000' }}>
       <Container>
         <Row className='text-center py-3'>
           <Col>
-            <p>Retro Tree &copy; {currentYear}</p>
+            <p>Menwear Store &copy; {currentYear}</p>
             <div>
               <a href="https://www.facebook.com/yourFacebookPage" target="_blank" rel="noopener noreferrer" style={{ color: '#fff', marginRight: '10px' }}>
                 <img src={facebookLogo} alt="Facebook" style={{ width: '30px', height: '30px' }} />
@@ -19,10 +19,10 @@ const Footer = () => {
                 <img src={instagramLogo} alt="Instagram" style={{ width: '30px', height: '30px' }} />
               </a>
             </div>
-            <p style={{ color:'#fff', marginBottom: '5px' }}>"Cây là những người bạn xanh mát của chúng ta trong cuộc sống."</p>
-            <p style={{ color:'#fff', marginBottom: '5px' }}>Phương thức thanh toán: COD, chuyển khoản ngân hàng</p>
-            <p style={{ color:'#fff', marginBottom: '5px' }}>Địa chỉ: FPT University</p>
-            <p style={{ color:'#fff', marginBottom: '5px' }}>Số điện thoại: 0919737083</p>
+            <p style={{ color:'#000', marginBottom: '5px' }}>"Menwear Store nơi định hình phong cách của bạn."</p>
+            <p style={{ color:'#000', marginBottom: '5px' }}>Phương thức thanh toán: COD, chuyển khoản ngân hàng</p>
+            <p style={{ color:'#000', marginBottom: '5px' }}>Địa chỉ: FPT University</p>
+            <p style={{ color:'#000', marginBottom: '5px' }}>Số điện thoại: 0919737083</p>
           </Col>
         </Row>
       </Container>
